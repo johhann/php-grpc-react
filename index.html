@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>gRPC Ping Frontend</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    input, button { padding: 10px; font-size: 16px; }
+    #response { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Ping the gRPC Server</h1>
+  <input type="text" id="inputText" placeholder="Enter your message">
+  <button onclick="sendToGrpc()">Send</button>
+  <div id="response">Data Placeholder</div>
+
+  <script>
+    async function sendToGrpc() {
+      const input = document.getElementById('inputText').value;
+      if (!input) {
+        alert('Please enter a message.');
+        return;
+      }
+
+      try {
+        const res = await fetch('http://localhost:8080/ping', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ message: input })
+        });
+
+        const data = await res.json();
+        document.getElementById('response').textContent = 'Response: ' + (data.message || 'No message returned');
+      } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('response').textContent = 'Error connecting to server.';
+      }
+    }
+  </script>
+</body>
+</html>
