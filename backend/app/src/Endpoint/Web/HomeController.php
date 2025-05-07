@@ -16,6 +16,7 @@ final class HomeController
 {
     /**
      * Read more about Prototyping:
+     *
      * @link https://spiral.dev/docs/basics-prototype/#installation
      */
     use PrototypeTrait;

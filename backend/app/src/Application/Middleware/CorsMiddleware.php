@@ -6,7 +6,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Spiral\Core\CoreInterface;
 
 class CorsMiddleware implements MiddlewareInterface
 {
@@ -32,7 +31,7 @@ class CorsMiddleware implements MiddlewareInterface
 
     private function createPreflightResponse(): ResponseInterface
     {
-        return (new \Nyholm\Psr7\Response())
+        return (new \Nyholm\Psr7\Response)
             ->withStatus(204)
             ->withHeader('Access-Control-Allow-Origin', '*')
             ->withHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')

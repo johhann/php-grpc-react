@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Application;
 
-use App\Application\Middleware\CorsMiddleware;
 use Spiral\Boot\Bootloader\CoreBootloader;
 use Spiral\Bootloader as Framework;
+use Spiral\Bootloader\CommandBootloader;
 use Spiral\Bootloader\Http\HttpBootloader;
 use Spiral\Debug\Bootloader\DumperBootloader;
 use Spiral\DotEnv\Bootloader\DotenvBootloader;
@@ -28,11 +28,6 @@ use Spiral\YiiErrorHandler\Bootloader\YiiErrorHandlerBootloader;
  */
 class Kernel extends \Spiral\Framework\Kernel
 {
-
-    protected const MIDDLEWARE = [
-        CorsMiddleware::class,
-    ];
-
     #[\Override]
     public function defineSystemBootloaders(): array
     {
@@ -100,6 +95,8 @@ class Kernel extends \Spiral\Framework\Kernel
 
             // Configure route groups, middleware for route groups
             Bootloader\RoutesBootloader::class,
+            CommandBootloader::class,
+            \App\Application\Bootloader\GRPCBootloader::class,
         ];
     }
 

@@ -28,7 +28,7 @@ final class LoggingBootloader extends Bootloader
         $monolog->addHandler(
             channel: ErrorHandlerMiddleware::class,
             handler: $monolog->logRotate(
-                directory('runtime') . 'logs/http.log',
+                directory('runtime').'logs/http.log',
             ),
         );
 
@@ -36,7 +36,7 @@ final class LoggingBootloader extends Bootloader
         $monolog->addHandler(
             channel: MonologConfig::DEFAULT_CHANNEL,
             handler: $monolog->logRotate(
-                filename: directory('runtime') . 'logs/error.log',
+                filename: directory('runtime').'logs/error.log',
                 level: Level::Error,
                 maxFiles: 25,
                 bubble: false,
@@ -47,7 +47,7 @@ final class LoggingBootloader extends Bootloader
         $monolog->addHandler(
             channel: MonologConfig::DEFAULT_CHANNEL,
             handler: $monolog->logRotate(
-                filename: directory('runtime') . 'logs/debug.log',
+                filename: directory('runtime').'logs/debug.log',
             ),
         );
     }

@@ -24,6 +24,7 @@ use Spiral\Views\ViewsInterface;
 final class ViewRenderer implements RendererInterface
 {
     private const DEFAULT_VIEW = 'exception/error';
+
     private const VIEW_PATTERN = 'exception/%s';
 
     public function __construct(

@@ -12,5 +12,14 @@ return [
 
     'services' => [
         __DIR__.'/../../proto/echo.proto',
+        // APP\GRPC\Service\PingService::class,
     ],
+
+    'generatedPath' => directory('root').'/backend/app/GRPC',
+
+    /**
+     * The root dir for all proto files, where imports will be searched.
+     */
+    'servicesBasePath' => directory('root').'/proto',
+
 ];

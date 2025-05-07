@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Tests\Feature\Controller;
 
 use Spiral\Bootloader\I18nBootloader;
-use Tests\TestCase;
 use Spiral\Testing\Http\FakeHttp;
+use Tests\TestCase;
 
 class HomeControllerTest extends TestCase
 {
     private FakeHttp $http;
 
-    public function testDefaultActionWorks(): void
+    public function test_default_action_works(): void
     {
         $response = $this->http->get('/')->assertOk();
 
@@ -22,9 +22,9 @@ class HomeControllerTest extends TestCase
         );
     }
 
-    public function testDefaultActionWithRuLocale(): void
+    public function test_default_action_with_ru_locale(): void
     {
-        if (!\in_array(I18nBootloader::class, $this->getRegisteredBootloaders())) {
+        if (! \in_array(I18nBootloader::class, $this->getRegisteredBootloaders())) {
             $this->markTestSkipped('Component `spiral/translator` is not installed.');
         }
 
@@ -36,7 +36,7 @@ class HomeControllerTest extends TestCase
         );
     }
 
-    public function testInteractWithConsole(): void
+    public function test_interact_with_console(): void
     {
         $output = $this->runCommand('views:reset');
 

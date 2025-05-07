@@ -14,7 +14,7 @@ use Tests\App\TestKernel;
 
 class TestCase extends BaseTestCase
 {
-    public function createAppInstance(Container $container = new Container()): TestableKernelInterface
+    public function createAppInstance(Container $container = new Container): TestableKernelInterface
     {
         return TestKernel::create(
             directories: $this->defineDirectories(
@@ -26,7 +26,7 @@ class TestCase extends BaseTestCase
 
     public function rootDirectory(): string
     {
-        return __DIR__ . '/..';
+        return __DIR__.'/..';
     }
 
     public function defineDirectories(string $root): array
@@ -39,7 +39,7 @@ class TestCase extends BaseTestCase
     protected function setUp(): void
     {
         $this->beforeBooting(static function (ConfiguratorInterface $config): void {
-            if (!$config->exists('session')) {
+            if (! $config->exists('session')) {
                 return;
             }
 

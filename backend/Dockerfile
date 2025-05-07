@@ -1,8 +1,8 @@
-ARG PHP_IMAGE=8.1.3-cli-alpine3.15
+ARG PHP_IMAGE=8.2-cli-alpine
 ARG ROAD_RUNNER_IMAGE=2023.3.11
 
 #Download rr binary
-FROM spiralscout/roadrunner:$ROAD_RUNNER_IMAGE as builder
+FROM spiralscout/roadrunner:$ROAD_RUNNER_IMAGE AS builder
 
 FROM php:$PHP_IMAGE
 
@@ -13,12 +13,16 @@ RUN apk add --no-cache \
         zip \
         bash \
         icu-dev \
+        php-sockets \
+        grpc \
+        grpc-dev \
+        protobuf-dev \
         libzip-dev \
         oniguruma-dev \
         libxml2-dev \
+    && docker-php-ext-install sockets \
+    && docker-php-ext-install bcmath pcntl \
     && rm -rf /var/cache/apk/*
-
-RUN docker-php-ext-install bcmath sockets pcntl
 
 COPY --from=composer:2.2.7 /usr/bin/composer /usr/bin/composer
 

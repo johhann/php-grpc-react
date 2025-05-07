@@ -1,42 +1,41 @@
 import React, { useState } from 'react';
+import { PingServiceClient } from './proto/ping_grpc_web_pb';
+import { MessageServiceClient } from './proto/message_grpc_web_pb';
+import { MessageRequest } from './proto/message_pb';
+import { PinRequest } from './proto/ping_pb';
+
+// const client = new PingServiceClient('http://localhost:50051'); // Envoy port
+const client = new MessageServiceClient('tcp://localhost:50051'); // Envoy port
 
 function App() {
   const [input, setInput] = useState('');
   const [response, setResponse] = useState('');
 
-  const handleClick = async () => {
-    try {
-      const res = await fetch('http://localhost:8080/ping', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ message: input }),
-      });
+  const handleClick = () => {
+    const request = new MessageRequest({});
+    request.setMessage(input);
 
-      const data = await res.json();
-      setResponse(data.message || 'No message returned');
-    } catch (error) {
-      setResponse('Error: ' + error.message);
-    }
+    client.message(request, {}, (err, res) => {
+      if (err) {
+        console.error(err);
+        setResponse('Error: ' + err.message);
+      } else {
+        console.log({result: res.getMessage()});
+        setResponse(res.getMessage());
+      }
+    });
   };
 
   return (
     <div style={{ padding: '2rem' }}>
-      <h1>gRPC Client</h1>
+      <h1>gRPC-Web Client</h1>
       <input
-        type="text"
-        placeholder="Enter message..."
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        style={{ padding: '0.5rem', width: '300px' }}
+        placeholder="Enter message..."
       />
-      <button onClick={handleClick} style={{ marginLeft: '1rem', padding: '0.5rem' }}>
-        Send
-      </button>
-      <p style={{ marginTop: '2rem' }}>
-        <strong>Response:</strong> {response}
-      </p>
+      <button onClick={handleClick}>Send</button>
+      <p><strong>Response:</strong> {response}</p>
     </div>
   );
 }

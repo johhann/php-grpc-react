@@ -16,11 +16,10 @@ use Spiral\Core\Options;
 \ini_set('display_errors', 'stderr');
 
 // Register Composer's auto loader.
-require __DIR__ . '/vendor/autoload.php';
-
+require __DIR__.'/vendor/autoload.php';
 
 // Initialize shared container, bindings, directories and etc.
-$options = new Options();
+$options = new Options;
 $options->allowSingletonsRebinding = false;
 $options->validateArguments = false;
 $container = new Container(options: $options);

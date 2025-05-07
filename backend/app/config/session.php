@@ -7,6 +7,7 @@ use Spiral\Session\Handler\FileHandler;
 
 /**
  * Session configuration.
+ *
  * @link https://spiral.dev/docs/basics-session
  */
 return [
@@ -17,7 +18,7 @@ return [
     'handler' => new Autowire(
         FileHandler::class,
         [
-            'directory' => directory('runtime') . 'session',
+            'directory' => directory('runtime').'session',
             'lifetime' => (int) env('SESSION_LIFETIME', 86400),
         ],
     ),

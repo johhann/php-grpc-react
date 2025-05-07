@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 class DemoTest extends TestCase
 {
-    public function testDemo(): void
+    public function test_demo(): void
     {
         $expected = true;
         $actual = false;
