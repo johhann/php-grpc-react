@@ -11,8 +11,9 @@ class MessageService implements MessageServiceInterface
 {
     public function Message(ContextInterface $ctx, MessageRequest $request): MessageResponse
     {
+        $message = $request->getMessage();
         $response = new MessageResponse;
-        $response->setMessage($request->getMessage());
+        $response->setMessage('Pong: '.$message);
 
         return $response;
     }

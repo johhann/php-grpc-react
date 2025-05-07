@@ -39,4 +39,6 @@ COPY ./ /var/www
 COPY --from=builder /usr/bin/rr /var/server/
 COPY ./.rr.yaml /var/server/
 
+EXPOSE 6001
+
 CMD ["/var/server/rr", "serve", "-d"]

@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 import { PingServiceClient } from './proto/ping_grpc_web_pb';
-import { MessageServiceClient } from './proto/message_grpc_web_pb';
-import { MessageRequest } from './proto/message_pb';
-import { PinRequest } from './proto/ping_pb';
+// import { MessageServiceClient } from './proto/message_grpc_web_pb';
+// import { MessageRequest } from './proto/message_pb';
+import { PingRequest } from './proto/ping_pb';
 
 // const client = new PingServiceClient('http://localhost:50051'); // Envoy port
-const client = new MessageServiceClient('tcp://localhost:50051'); // Envoy port
+const client = new PingServiceClient('http://localhost:8080'); // Envoy port
 
 function App() {
   const [input, setInput] = useState('');
   const [response, setResponse] = useState('');
 
   const handleClick = () => {
-    const request = new MessageRequest({});
-    request.setMessage(input);
+    const request = new PingRequest({});
+    // request.setMessage(input);
 
-    client.message(request, {}, (err, res) => {
+    request.setMessage('hello');
+    client.ping(request, {}, (err, res) => {
       if (err) {
         console.error(err);
         setResponse('Error: ' + err.message);

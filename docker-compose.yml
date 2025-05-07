@@ -7,19 +7,34 @@ services:
     working_dir: /var/www
     volumes:
       - ./backend:/var/www
+      - ./proto:/var/www/proto
     ports:
-      - "8080:8080"
+      - "6001:6001"
+    networks:
+      - app-network
 
   frontend:
     build:
       context: ./frontend
+    volumes:
+      - ./frontend:/app
     ports:
       - "3000:3000"
+    networks:
+      - app-network
   
   envoy:
-    image: envoyproxy/envoy:v1.33-latest
+    image: envoyproxy/envoy:dev
     volumes:
-      - ./envoy.yaml:/etc/envoy/envoy.yaml
+      - ./envoy.yaml:/etc/envoy.yaml
     ports:
       - "9901:9901"
-      - "50051:50051"
+      - "8080:8080"
+    depends_on:
+      - app
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

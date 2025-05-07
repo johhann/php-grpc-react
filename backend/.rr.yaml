@@ -1,9 +1,12 @@
 version: '3'
 rpc:
-    listen: 'tcp://127.0.0.1:6001'
+    listen: 'tcp://0.0.0.0:6001'
+
+grpc:
+    listen: 'tcp://0.0.0.0:8080'
     proto:
-      - '../proto/ping.proto'
-      - '../proto/message.proto'
+      - './proto/ping.proto'
+      - './proto/message.proto'
 http:
     address: '0.0.0.0:8080'
     middleware:

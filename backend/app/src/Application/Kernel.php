@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Application;
 
+use GRPC\Service\MessageService;
+use GRPC\Service\PingService;
+use MessageServiceInterface;
+use PingServiceInterface;
 use Spiral\Boot\Bootloader\CoreBootloader;
 use Spiral\Bootloader as Framework;
 use Spiral\Bootloader\CommandBootloader;
@@ -28,6 +32,11 @@ use Spiral\YiiErrorHandler\Bootloader\YiiErrorHandlerBootloader;
  */
 class Kernel extends \Spiral\Framework\Kernel
 {
+    protected const SERVICES = [
+        PingServiceInterface::class => PingService::class,
+        MessageServiceInterface::class => MessageService::class,
+    ];
+
     #[\Override]
     public function defineSystemBootloaders(): array
     {
